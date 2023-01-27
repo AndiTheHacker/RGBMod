@@ -4,6 +4,8 @@ import io.gitlab.mguimard.openrgb.client.OpenRGBClient
 import io.gitlab.mguimard.openrgb.entity.OpenRGBColor
 import io.gitlab.mguimard.openrgb.entity.OpenRGBDevice
 import net.fabricmc.api.ModInitializer
+import net.minecraft.client.MinecraftClient
+import net.minecraft.server.MinecraftServer
 
 @Suppress("UNUSED")
 object RGBMod: ModInitializer {
@@ -28,8 +30,9 @@ object RGBMod: ModInitializer {
     fun damage() {
         Thread {
             client.updateMode(cIndex, 1, controller.modes[1])
-            client.updateLeds(cIndex, Array(controller.colors.size) { OpenRGBColor.fromHexaString("#00FFFF") })
+            client.updateLeds(cIndex, Array(controller.colors.size) { OpenRGBColor.fromHSB(0f, 255f, 255f) })
             Thread.sleep(300)
+
             client.updateMode(
                 cIndex,
                 17,
